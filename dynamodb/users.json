@@ -1,0 +1,16 @@
+{
+    "TableName": "users",
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "username"
+        }
+    ],
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "username",
+            "AttributeType": "S"
+        }
+    ],
+    "BillingMode": "PAY_PER_REQUEST"
+}

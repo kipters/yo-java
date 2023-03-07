@@ -1,0 +1,20 @@
+version: '3'
+services:
+  devhost:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - LOCALSTACK_HOST=localstack
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
+  localstack:
+    image: localstack/localstack
+    environment:
+      - PERSISTENCE=1
+    volumes:
+      - ./persistence/localstack:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 4566:4566
