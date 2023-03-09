@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-initializr",
+        "redhat.fabric8-analytics",
+        "redhat.vscode-xml"
+    ]
+}
