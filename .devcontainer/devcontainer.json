@@ -25,7 +25,11 @@
 				"redhat.vscode-xml"
 			]
 		}
-	}
+	},
+
+	"forwardPorts": [
+		"dynamoadmin:8001"
+	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

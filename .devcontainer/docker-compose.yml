@@ -18,3 +18,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 4566:4566
+  dynamoadmin:
+    build:
+      context: .
+      dockerfile: Dockerfile.dynamoadmin
+    environment:
+      - DYNAMO_ENDPOINT=http://localstack:4566
