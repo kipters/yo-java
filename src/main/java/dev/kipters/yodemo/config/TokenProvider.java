@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import dev.kipters.yodemo.model.JwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -54,18 +55,22 @@ public class TokenProvider {
         return expiration.before(new Date());
     }
 
-    public String generateToken(Authentication authentication) {
+    public JwtToken generateToken(Authentication authentication) {
         var authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        return Jwts.builder()
+        var issuedAt = new Date(System.currentTimeMillis());
+        var expiration = new Date(issuedAt.getTime() + TOKEN_VALIDITY*1000);
+        var jwt = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
+                .setIssuedAt(issuedAt)
+                .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .compact();
+
+        return new JwtToken(jwt, expiration);
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

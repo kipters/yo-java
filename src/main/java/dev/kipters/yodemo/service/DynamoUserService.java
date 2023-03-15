@@ -44,7 +44,8 @@ public class DynamoUserService implements UserDetailsService, IUserService {
 
         var roles = new HashSet<SimpleGrantedAuthority>();
         roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        var details = new User(username, "", roles);
+        var password = item.get("password").s();
+        var details = new User(username, password, roles);
 
         return details;
     }
@@ -66,7 +67,7 @@ public class DynamoUserService implements UserDetailsService, IUserService {
         var encodedPassword = passwordEncoder.encode(password);
         var itemValues = new HashMap<String, AttributeValue>();
         itemValues.put("username", AttributeValue.builder().s(username).build());
-        itemValues.put("password", AttributeValue.builder().s(password).build());
+        itemValues.put("password", AttributeValue.builder().s(encodedPassword).build());
 
         var putItemRequest = PutItemRequest.builder()
             .tableName("users")

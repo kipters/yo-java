@@ -16,6 +16,8 @@ services:
     volumes:
       - ./persistence/localstack:/var/lib/localstack
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./localstack:/etc/localstack/init:ro
+      - ../dynamodb:/opt/init-data
     ports:
       - 4566:4566
   dynamoadmin:
