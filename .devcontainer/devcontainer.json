@@ -28,7 +28,8 @@
 	},
 
 	"forwardPorts": [
-		"dynamoadmin:8001"
+		"dynamoadmin:8001",
+		"grafana:3000"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

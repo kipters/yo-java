@@ -9,7 +9,16 @@
             "name": "YoDemoApplication",
             "request": "launch",
             "mainClass": "dev.kipters.yodemo.YoDemoApplication",
-            "projectName": "yo-demo"
+            "projectName": "yo-demo",
+            "vmArgs": "-javaagent:/workspace/otel/opentelemetry-javaagent.jar",
+            "env": {
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_METRICS_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://otel-collector:4317",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+                "OTEL_SERVICE_NAME": "yo",
+                "OTEL_JAVAAGENT_DEBUG": "false"
+            }
         }
     ]
 }

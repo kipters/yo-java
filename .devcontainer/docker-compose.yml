@@ -26,3 +26,36 @@ services:
       dockerfile: Dockerfile.dynamoadmin
     environment:
       - DYNAMO_ENDPOINT=http://localstack:4566
+    depends_on:
+      - localstack
+  
+  otel-collector:
+    image: otel/opentelemetry-collector
+    command: ["--config=/etc/otel-collector-config.yml"]
+    volumes:
+      - ./observability/otel-collector-config.yml:/etc/otel-collector-config.yml:ro
+  
+  loki:
+    image: grafana/loki
+    command: ["-config.file=/etc/loki/local-config.yaml"]
+
+  grafana:
+    image: grafana/grafana-oss
+    volumes:
+      - ./observability/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  tempo:
+    image: grafana/tempo
+    command: ["-config.file=/etc/tempo.yml"]
+    volumes:
+      - ./observability/tempo/tempo.yml:/etc/tempo.yml:ro
+      - ./observability/tempo/data:/tmp/tempo:rw
