@@ -5,6 +5,53 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "NotificationService",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build NotificationService",
+            "program": "${workspaceFolder}/src/NotificationService/bin/Debug/net7.0/NotificationService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/NotificationService",
+            "stopAtEntry": false,
+            // "serverReadyAction": {
+            //     "action": "openExternally",
+            //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            // },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "LOKI_ENDPOINT": "http://loki:3100",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://otel-collector:4317",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "ApiGateway",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build ApiGateway",
+            "program": "${workspaceFolder}/src/ApiGateway/bin/Debug/net7.0/ApiGateway.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/ApiGateway",
+            "stopAtEntry": false,
+            // "serverReadyAction": {
+            //     "action": "openExternally",
+            //     "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            // },
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8000",
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "LOKI_ENDPOINT": "http://loki:3100",
+                "OTEL_EXPORTER_OTLP_ENDPOINT": "http://otel-collector:4317",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
             "type": "java",
             "name": "YoDemoApplication",
             "request": "launch",
@@ -19,6 +66,16 @@
                 "OTEL_SERVICE_NAME": "yo",
                 "OTEL_JAVAAGENT_DEBUG": "false"
             }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "DebugAll",
+            "configurations": [
+                "NotificationService",
+                "YoDemoApplication",
+                "ApiGateway"
+            ]
         }
     ]
 }

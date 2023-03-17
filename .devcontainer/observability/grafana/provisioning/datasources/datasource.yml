@@ -18,6 +18,10 @@ datasources:
           name: TraceId
           matcherRegex: \"TraceId\"\:\"(\w+)\"
           url: $${__value.raw}
+        - datasourceUid: tempo
+          name: SpanId
+          matcherRegex: \"SpanId\"\:\"(\w+)\"
+          url: $${__value.raw}
 
   - name: Prometheus
     type: prometheus
@@ -29,6 +33,9 @@ datasources:
     jsonData:
       exemplarTraceIdDestinations:
         - name: TraceId
+          datasourceUid: tempo
+      exemplarSpanIdDestinations:
+        - name: SpanId
           datasourceUid: tempo
 
   - name: Tempo
