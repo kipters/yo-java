@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "nuxt": "^3.3.1",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@opentelemetry/auto-instrumentations-node": "^0.36.4",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.36.1",
+    "@opentelemetry/sdk-node": "^0.36.1"
+  }
+}

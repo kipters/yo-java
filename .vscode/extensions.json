@@ -5,6 +5,8 @@
         "redhat.fabric8-analytics",
         "redhat.vscode-xml",
         "ms-dotnettools.csharp",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "vue.volar",
+        "bradlc.vscode-tailwindcss"
     ]
 }
