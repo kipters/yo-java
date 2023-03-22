@@ -5,10 +5,13 @@ using Serilog;
 using Serilog.Enrichers.Span;
 using Serilog.Sinks.Grafana.Loki;
 
+#pragma warning disable CA1852
+#pragma warning disable CA1305
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .CreateBootstrapLogger();
+#pragma warning restore CA1305
 
 try
 {
@@ -59,7 +62,7 @@ try
                     h.FilterHttpRequestMessage = (req) => req.RequestUri switch
                     {
                         null => true,
-                        { OriginalString: { } os } when os.StartsWith(lokiEndpoint) => false,
+                        { OriginalString: { } os } when os.StartsWith(lokiEndpoint, StringComparison.OrdinalIgnoreCase) => false,
                         _ => true
                     };
                 }

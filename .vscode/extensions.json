@@ -4,6 +4,7 @@
         "vscjava.vscode-spring-initializr",
         "redhat.fabric8-analytics",
         "redhat.vscode-xml",
-        "ms-dotnettools.csharp"
+        "ms-dotnettools.csharp",
+        "editorconfig.editorconfig"
     ]
 }

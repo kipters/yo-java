@@ -1,0 +1,24 @@
+<Project>
+    <PropertyGroup>
+      <Deterministic>True</Deterministic>
+      <LangVersion>11.0</LangVersion>
+      <Nullable>enable</Nullable>
+      <Version>$([System.DateTime]::UtcNow.ToString("yyyy.MM.dd"))</Version>
+      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+      <EnableNETAnalyzers>True</EnableNETAnalyzers>
+      <AnalysisLevel>latest</AnalysisLevel>
+      <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+      <NoWarn>CA1812;CA2007;CA1848;CA1727</NoWarn>
+      <!--
+          CA1812: {type} is an internal class that is apparently never instantiated
+          CA2007: Consider calling ConfigureAwait on the awaited task
+          CA1848: For improved performance, use the LoggerMessage delegates
+          CA1727: Use PascalCase for named placeholders in the logging message template
+      -->
+      <ServerGarbageCollection>true</ServerGarbageCollection>
+    </PropertyGroup>
+  
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    </PropertyGroup>
+  </Project>
