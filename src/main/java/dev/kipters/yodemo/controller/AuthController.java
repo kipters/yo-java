@@ -25,13 +25,13 @@ import dev.kipters.yodemo.service.DynamoUserService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    
+
     @Autowired
     private DynamoUserService userService;
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private TokenProvider tokenProvider;
 
