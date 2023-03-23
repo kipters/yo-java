@@ -4,11 +4,14 @@
   </h1>
   <h2>
     {{ message }}
+    <div>
+      <NuxtPage />
+    </div>
   </h2>
 </template>
 
 <script>
-import axios from 'axios';
+import { useAuthStore } from './stores/auth';
 
 export default {
   data() {
@@ -19,8 +22,19 @@ export default {
 
   async created() {
     try {
-      const response = await axios.get('https://httpbin.org/get');
-      this.message = response.data;
+      // const { $axios } = useNuxtApp()
+      // const authStore = useAuthStore();
+      // authStore.setToken("token");
+
+      // const response = await $axios.get('/env');
+      // this.message = response.data;
+
+      // if (process.browser) {
+        this.message = PushManager.permissionState();
+      // } else {
+        // this.message = "Server";
+      // }
+
     } catch (error) {
       this.message = "Error: " + error;
     }

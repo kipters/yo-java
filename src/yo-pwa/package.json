@@ -17,6 +17,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "@opentelemetry/auto-instrumentations-node": "^0.36.4",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.36.1",
-    "@opentelemetry/sdk-node": "^0.36.1"
+    "@opentelemetry/sdk-node": "^0.36.1",
+    "@pinia/nuxt": "^0.4.7",
+    "pinia": "^2.0.33"
   }
 }
