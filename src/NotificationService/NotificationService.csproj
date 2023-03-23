@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.SQS" Version="3.7.100.96" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Orleans.BroadcastChannel" Version="7.1.0" />
     <PackageReference Include="Microsoft.Orleans.Server" Version="7.1.0" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.4.0" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.4.0" />

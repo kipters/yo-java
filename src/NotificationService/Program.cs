@@ -1,8 +1,10 @@
 ﻿using NotificationService.ConfigModel;
 using NotificationService.HostedServices;
+using NotificationService.NotificationChannels;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Orleans.Configuration;
 using Serilog;
 using Serilog.Enrichers.Span;
 using Serilog.Sinks.Grafana.Loki;
@@ -52,6 +54,7 @@ try
             .AddRuntimeInstrumentation()
             .AddHttpClientInstrumentation()
             .AddMeter("Microsoft.Orleans", "Orleans")
+            .AddMeter("QueueListenerService")
             .AddOtlpExporter()
         )
         .WithTracing(t => t
@@ -68,7 +71,8 @@ try
                     };
                 }
             })
-            .AddSource("Microsoft.Orleans.Application")
+            .AddSource("Microsoft.Orleans.Application", "Microsoft.Orleans.Runtime")
+            .AddSource("QueueListenerService")
             .AddOtlpExporter()
         );
 
@@ -79,7 +83,21 @@ try
         .Bind(builder.Configuration.GetSection("Sqs"))
         .ValidateDataAnnotations();
     builder.Services.AddSingleton<NotificationsMessageProcessor>();
+    builder.Services.AddSingleton<IVapidService, VapidService>();
     builder.Services.AddHostedService<QueueListenerService<NotificationsMessageProcessor, NotificationsMessageProcessor>>();
+
+    builder.Host.UseOrleans((context, siloBuilder) =>
+    {
+        siloBuilder
+            .UseLocalhostClustering()
+            .Configure<ClusterOptions>(options =>
+            {
+                options.ClusterId = "dev";
+                options.ServiceId = "NotificationService";
+            })
+            .AddBroadcastChannel("notifications", o => o.FireAndForgetDelivery = false)
+            .AddMemoryGrainStorageAsDefault();
+    });
 
     var app = builder.Build();
 

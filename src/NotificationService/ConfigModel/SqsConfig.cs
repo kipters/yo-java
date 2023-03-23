@@ -4,7 +4,7 @@ namespace NotificationService.ConfigModel;
 
 public class SqsConfig : IValidatableObject
 {
-    public Uri QueueUrl { get; set; } = null!;
+    public string QueueUrl { get; set; } = null!;
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
