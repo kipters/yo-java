@@ -45,6 +45,7 @@ public class NotificationsMessageProcessor : IMessageProcessor, IQueueUrlProvide
             await stream.Publish(content);
             return true;
         }
+#pragma warning disable CA1031
         catch (System.Exception ex)
         {
             _logger.LogError(ex, "Error while processing message");

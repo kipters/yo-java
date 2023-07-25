@@ -34,13 +34,13 @@
 	"forwardPorts": [
 		"dynamoadmin:8001",
 		"grafana:3000"
-	]
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	"postCreateCommand": "awslocal sqs create-queue --queue-name notifications"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

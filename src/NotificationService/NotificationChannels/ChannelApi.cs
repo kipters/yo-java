@@ -58,7 +58,7 @@ public interface IPushGrain : IGrainWithStringKey
 public record NotificationModel(string Sender, string Target);
 
 [ImplicitChannelSubscription]
-internal class WebPushGrain : Grain, IPushGrain, IOnBroadcastChannelSubscribed
+internal sealed class WebPushGrain : Grain, IPushGrain, IOnBroadcastChannelSubscribed
 {
     private readonly ILogger<WebPushGrain> _logger;
     private readonly IPersistentState<WebPushGrainState> _state;
@@ -143,7 +143,7 @@ public interface IVapidService
     Task<PushDeliveryResult> SendMessage(WebPushChannel channe, string title, string body);
 }
 
-internal class VapidService : IVapidService
+internal sealed class VapidService : IVapidService
 {
     public Task<PushDeliveryResult> SendMessage(WebPushChannel channe, string title, string body)
     {
@@ -156,7 +156,7 @@ public enum PushDeliveryResult
     Sent, TemporaryFailure, InvalidRequest, ChannelExpired
 }
 
-internal class WebPushGrainState
+internal sealed class WebPushGrainState
 {
     public Dictionary<string, WebPushChannel> Channels { get; set; } = new();
 }

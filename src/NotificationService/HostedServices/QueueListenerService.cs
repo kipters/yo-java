@@ -30,8 +30,10 @@ public class QueueListenerService<TMessageProcessor, TQueueUrlProvider> : Backgr
 
     public override void Dispose()
     {
+        GC.SuppressFinalize(this);
         _activitySource?.Dispose();
         _meter?.Dispose();
+        base.Dispose();
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

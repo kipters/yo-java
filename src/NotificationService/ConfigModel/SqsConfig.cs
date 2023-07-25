@@ -4,6 +4,7 @@ namespace NotificationService.ConfigModel;
 
 public class SqsConfig : IValidatableObject
 {
+#pragma warning disable CA1056
     public string QueueUrl { get; set; } = null!;
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

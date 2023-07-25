@@ -8,16 +8,17 @@
       <EnableNETAnalyzers>True</EnableNETAnalyzers>
       <AnalysisLevel>latest</AnalysisLevel>
       <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-      <NoWarn>CA1812;CA2007;CA1848;CA1727</NoWarn>
+      <NoWarn>CA1812;CA2007;CA1848;CA1727;CA1305</NoWarn>
       <!--
           CA1812: {type} is an internal class that is apparently never instantiated
           CA2007: Consider calling ConfigureAwait on the awaited task
           CA1848: For improved performance, use the LoggerMessage delegates
           CA1727: Use PascalCase for named placeholders in the logging message template
+          CA1305: The behavior could vary based on the current user's locale settings
       -->
       <ServerGarbageCollection>true</ServerGarbageCollection>
     </PropertyGroup>
-  
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
